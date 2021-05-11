@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from catalog.models import Piece, Composer, PieceInstance, Genre
+from django.views import generic
 
 
 # Create your views here.
@@ -20,3 +21,15 @@ def index(request):
     }
 
     return render(request, 'index.html', context=context)
+
+class PieceListView(generic.ListView):
+    model = Piece
+    
+class ComposerListView(generic.ListView):
+    model = Composer
+
+class PieceDetailView(generic.DetailView):
+    model = Piece
+
+class ComposerDetailView(generic.DetailView):
+    model = Composer

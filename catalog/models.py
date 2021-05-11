@@ -17,18 +17,18 @@ class Piece(models.Model):
 
     # Foreign Key used because piece can only have one composer, but composers can have multiple pieces
     # Composer as a string rather than object because it hasn't been declared yet in the file
-    composer = models.ForeignKey('Composer', on_delete=models.SET_NULL, null=True)
 
+    composer = models.ForeignKey('Composer', on_delete=models.SET_NULL, null=True)
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the piece')
     isbn = models.CharField('ISBN', max_length=13, unique=True,
-                             help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
+    help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
 
     # ManyToManyField used because genre can contain many pieces. Pieces can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a style for this piece')
 
     def __str__(self):
-        """String for representing the Model object."""
+        """Piece Model"""
         return self.title
 
     def get_absolute_url(self):
@@ -43,8 +43,11 @@ class Piece(models.Model):
 import uuid # Required for unique book instances
 
 class PieceInstance(models.Model):
-    """Model representing a specific copy of a piece (i.e. that can be downloaded from the library)."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular piece across whole library')
+    """Model representing a specific copy of a piece 
+       (i.e. that can be downloaded from the library)."""
+    id = models.UUIDField(primary_key=True,
+                          default=uuid.uuid4,
+                          help_text='Unique ID for this particular piece across whole library')
     piece = models.ForeignKey('Piece', on_delete=models.PROTECT, null=True)
     imprint = models.CharField(max_length=200)
 
