@@ -1,0 +1,9 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+  <h1>Title: {{ piece.title }}</h1>
+ <audio controls>
+  <source src="{% static piece.filename %}" type="audio/mp3">
+Your browser does not support the audio element.
+</audio>
+{% endblock %}

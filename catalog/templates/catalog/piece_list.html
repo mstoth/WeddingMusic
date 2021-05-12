@@ -4,9 +4,17 @@
   <h1>Piece List</h1>
   {% if piece_list %}
   <ul>
+  {% load static %}
+
     {% for piece in piece_list %}
       <li>
-        <a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a> ({{piece.composer}})
+        <a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a>
+          <audio controls>
+              <source src="{% static piece.filename %}" type="audio/mp3">
+          </audio>
+          <a href="{{ piece.get_absolute_url }}/recording")>Listen</a>
+
+      <p>{% static piece.filename %} </p>
       </li>
     {% endfor %}
   </ul>
